@@ -20,7 +20,7 @@ setup(
             glob("params/*.yaml"),
         ),
     ],
-    install_requires=["setuptools", "pyserial==3.5", "transforms3d==0.4.1"],
+    install_requires=["setuptools", "pyserial==3.5", "transforms3d==0.3.1"],
     zip_safe=True,
     maintainer="root",
     maintainer_email="root@todo.todo",
