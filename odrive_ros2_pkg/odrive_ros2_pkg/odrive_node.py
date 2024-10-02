@@ -9,6 +9,8 @@ import tf2_ros
 from tf_transformations import quaternion_from_euler
 from std_srvs.srv import Trigger
 
+import signal 
+
 # from odrive_ros2.odrive_interface import ODriveInterfaceAPI
 from odrive_ros2_pkg.odrive_interface import ODriveInterfaceAPI
 
@@ -71,6 +73,8 @@ class OdriveNode(Node):
         )
 
         self.get_logger().info("Odrive ROS2 driver initialized.")
+
+        signal.signal(signal.SIGINT, self.shutdown_signal_handler) #Captures the Ctrl+C command and calls the motors' disengage routine 
 
     def init_params(self):
         self.declare_parameter(
@@ -388,6 +392,12 @@ class OdriveNode(Node):
         self.bus_voltage = self.driver.bus_voltage()
         # print(self.vel_l, self.vel_r)
 
+    # Function to handle keyboard interruption Ctrl+C (SIGINT) 
+    def shutdown_signal_handler(self, signum, frame):
+        if self.driver_engaged:
+            self.get_logger().info("Ctrl+C captured, stopping Rob...")
+            self.disengage_driver()  # Stops rob but keeps the node active
+        
     def publish_current(self, time_now):
         self.current_publisher_left.publish(Float64(data=self.current_l))
         self.current_publisher_right.publish(Float64(data=self.current_r))
