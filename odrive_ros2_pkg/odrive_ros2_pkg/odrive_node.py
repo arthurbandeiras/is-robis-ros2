@@ -396,7 +396,9 @@ class OdriveNode(Node):
     def shutdown_signal_handler(self, signum, frame):
         if self.driver_engaged:
             self.get_logger().info("Ctrl+C captured, stopping Rob...")
-            self.disengage_driver()  # Stops rob but keeps the node active
+            self.disengage_driver()  # Stops rob but still keeps the node active
+        self.shutdown()  
+        rclpy.shutdown() #kills the node
         
     def publish_current(self, time_now):
         self.current_publisher_left.publish(Float64(data=self.current_l))
