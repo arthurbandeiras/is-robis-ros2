@@ -26,7 +26,7 @@ RUN python3 -m pip install --upgrade odrive
 
 WORKDIR /workspace/ros2_ws
 RUN mkdir src/
-RUN git clone -b devel https://github.com/labvisio/is-robis-ros2.git \
+RUN git clone -b devel https://github.com/arthurbandeiras/is-robis-ros2.git \
     && mv is-robis-ros2/odrive_ros2_pkg src/
 
 WORKDIR /workspace/ros2_ws
