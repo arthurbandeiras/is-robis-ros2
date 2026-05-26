@@ -25,6 +25,11 @@ def generate_launch_description():
                         "publish_odom_tf": publish_odom_tf_bool,
                     }
                 ],
+                remappings=[
+                    ("/cmd_vel", "/robis/cmd_vel"),
+                    ("/point_cloud", "/robis/point_cloud"),
+                    ("/scan", "/robis/scan"),
+                ],
             ),
             Node(
                 package="tf2_ros",
