@@ -20,14 +20,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #RUN wget https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py
 RUN python3 -m pip install --upgrade odrive
 
-#RUN apt-get install -y ros-humble-diagnostic-updater
-#RUN apt-get install -y ros-humble-tf-transformations
-#RUN apt install -y ros-humble-slam-toolbox
-
 WORKDIR /workspace/ros2_ws
 RUN mkdir src/
-RUN git clone -b devel https://github.com/arthurbandeiras/is-robis-ros2.git \
-    && mv is-robis-ros2/odrive_ros2_pkg src/
+#RUN git clone -b devel https://github.com/arthurbandeiras/is-robis-ros2.git \
+#    && mv is-robis-ros2/odrive_ros2_pkg src/
+
+COPY ./odrive_ros2_pkg src/odrive_ros2_pkg
 
 WORKDIR /workspace/ros2_ws
 RUN colcon build --packages-select odrive_ros2_pkg
@@ -57,5 +55,3 @@ RUN cd src/ \
     && source /opt/ros/humble/setup.bash \
     && colcon build --packages-select ydlidar_ros2_driver \
     && source install/setup.bash 
-#RUN apt-get update
-#RUN apt install -y ros-humble-slam-toolbox  

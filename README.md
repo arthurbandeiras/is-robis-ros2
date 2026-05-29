@@ -4,7 +4,7 @@
 
 ### Run the project
 ```
-sudo docker run --rm --privileged -it --network=host -v "$(pwd):/workspace/src" -v /dev/bus/usb:/dev/bus/usb --name=robis_ro2 matheusdutra0207/is-robis-ros2:0.0.4 bash
+sudo docker run --rm --privileged -it --network=host -v "$(pwd):/workspace/src" -v /dev/bus/usb:/dev/bus/usb --name=robis_ro2 arthurbandeira/robis_ros2:0.0.1 bash
 ```
 
 ### Initialize the odrive node
