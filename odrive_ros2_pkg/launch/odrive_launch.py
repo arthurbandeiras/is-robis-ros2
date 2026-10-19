@@ -13,7 +13,6 @@ def generate_launch_description():
             Node(
                 package="odrive_ros2_pkg",
                 executable="odrive_node",
-                namespace="robis",
                 name="odrive_node",
                 output="screen",
                 emulate_tty=True,
@@ -25,16 +24,10 @@ def generate_launch_description():
                         "publish_odom_tf": publish_odom_tf_bool,
                     }
                 ],
-                remappings=[
-                    ("/cmd_vel", "/robis/cmd_vel"),
-                    ("/point_cloud", "/robis/point_cloud"),
-                    ("/scan", "/robis/scan"),
-                ],
             ),
             Node(
                 package="tf2_ros",
                 executable="static_transform_publisher",
-                namespace="robis",
                 name="base_link_broadcaster",
                 arguments=[
                     "0",
