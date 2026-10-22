@@ -4,7 +4,10 @@
 
 ### Run the project
 ```
-sudo docker run --rm --privileged -it --network=host -v "$(pwd):/workspace/src" -v /dev/bus/usb:/dev/bus/usb --name=robis_ro2 arthurbandeira/robis_ros2:0.0.2 bash
+sudo docker run --rm --privileged -it --network=host \
+  -v "$(pwd):/workspace/src" \
+  -v /dev/bus/usb:/dev/bus/usb \
+  --name=robis_jazzy arthurbandeira/robis_ros2:jazzy-0.0.1 bash
 ```
 
 ### Initialize the odrive node
@@ -20,36 +23,36 @@ robots can share the same `ROS_DOMAIN_ID` without colliding.
 ### Consume the robot odometry 
 
 ```
-sudo docker exec -it robis_ro2 bash
+sudo docker exec -it robis_jazzy bash
 ```
 
 ```
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 ros2 topic echo /robis/odrive/odom --field pose.pose.position
 ```
 ### Publish cmd_vel topic
 
 ```
-sudo docker exec -it robis_ro2 bash
+sudo docker exec -it robis_jazzy bash
 ```
 
 ```
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 ros2 topic pub -r 15 /robis/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.1, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.1}}"
 ```
 
 ### Map an environment
 
 ```
-sudo docker exec -it robis_ro2 bash
+sudo docker exec -it robis_jazzy bash
 ```
 #### Edit the config file
 ```
-vim opt/ros/humble/share/slam_toolbox/config/mapper_params_online_async.yaml
+vim opt/ros/jazzy/share/slam_toolbox/config/mapper_params_online_async.yaml
 ```
 #### Run the Slam Toolbox
 ```
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 ros2 launch slam_toolbox online_async_launch.py
 ```
 
